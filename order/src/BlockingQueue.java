@@ -1,5 +1,5 @@
 /**
- * Created by jingxuan on 2018/7/6.
+ * @author jingxuan
  */
 public class BlockingQueue<T> {
     T[] arr;
@@ -12,7 +12,9 @@ public class BlockingQueue<T> {
     }
 
     public void put(T t) throws InterruptedException {
-        if (t == null) return;
+        if (t == null) {
+            return;
+        }
         synchronized (this) {
             if (index == capacity) {
                 wait();
@@ -31,7 +33,8 @@ public class BlockingQueue<T> {
                 wait();
             }
             choose = arr[--index];
-            arr[index] = null; //删除
+            // delete
+            arr[index] = null;
             if (index == capacity) {
                 notifyAll();
             }
